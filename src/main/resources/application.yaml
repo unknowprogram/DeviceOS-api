@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: driveOS-api
+
+
+  #MYSQL配置
+  datasource:
+    url: jdbc:mysql://localhost:3306/driveos?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # JPA 数据库访问配置
+  jpa:
+    hibernate:
+      # 校验实体类和数据库表结构，不自动创建或修改表
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+
+  # 数据库版本迁移
+  flyway:
+    enabled: true
+
+  # DriveOS 自定义配置
+  app:
+    jwt:
+      # 必须通过环境变量设置，不要将真实密钥提交到 Git
+      secret: "9e+KIQ0XnMA5rDICEpDN0d0hiKK7xD+6PsjwrgIoEQ0="
+      # Access Token 有效期：30 分钟
+      access-expiration-ms: 1800000
+
+
+
+
