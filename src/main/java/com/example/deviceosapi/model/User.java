@@ -1,60 +1,45 @@
 package com.example.deviceosapi.model;
 
-import jakarta.persistence.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+/**
+ * 用户表 dos_user
+ */
 @Data
-@Entity
-@Table(name = "dos_user",uniqueConstraints = @UniqueConstraint(
-        name = "uk_dos_user_phone",
-        columnNames = "phone"
-))
 @NoArgsConstructor
+@TableName("dos_user")
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    /** 主键，数据库自增 */
+    @TableId(type = IdType.AUTO)
     private Long id;
-    // 手机号
-    @Column(nullable = false,length = 11)
+
+    /** 手机号 */
     private String phone;
 
-    // 密码
-    @Column(name = "password_hash", nullable = false, length = 100)
+    /** 密码哈希 */
+    @TableField("password_hash")
     private String passwordHash;
-    // 昵称
-    @Column(length = 50)
+
+    /** 昵称 */
     private String nickname;
-    //状态
-    @Column(nullable = false,columnDefinition = "TINYINT")
+
+    /** 状态：1 正常，0 禁用 */
     private Integer status = 1;
-    // 创建时间
-    @Column(name = "created_at", nullable = false, updatable = false)
+
+    /** 创建时间，插入时由 MetaObjectHandler 自动填充 */
+    @TableField(value = "created_at", fill = FieldFill.INSERT)
     private LocalDateTime createdAt;
-    // 更新时间
 
-    @Column(name = "updated_at", nullable = false)
+    /** 更新时间，插入和更新时由 MetaObjectHandler 自动填充 */
+    @TableField(value = "updated_at", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updatedAt;
-
-    // 创建前执行
-    @PrePersist
-    public void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
-        createdAt = now;
-        updatedAt = now;
-    }
-
-    // 更新前执行
-    @PreUpdate
-    public void onUpdate() {
-        updatedAt = LocalDateTime.now();
-    }
-
-
-
-
-
-
 }

@@ -2,6 +2,9 @@ package com.example.deviceosapi.controller;
 
 import com.example.deviceosapi.common.ApiResponse;
 import com.example.deviceosapi.common.BusinessException;
+import com.example.deviceosapi.dto.RegisterRequest;
+import com.example.deviceosapi.dto.SendCodeRequest;
+import com.example.deviceosapi.dto.SendCodeResponse;
 import com.example.deviceosapi.service.AuthService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -19,34 +22,36 @@ public class AuthController {
 
     private final AuthService authService;
 
+
+    /**
+     * 注册接口
+     * */
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public ApiResponse<Void> register(@Valid @RequestBody RegisterRequest request) {
         authService.register(
                 request.getPhone(),
+                request.getCode(),
                 request.getPassword()
         );
         return ApiResponse.success("注册成功", null);
     }
 
     /**
-     * 注册请求参数
+     * 发送验证码
      * */
-    @Data
-    public static class RegisterRequest{
-        @NotBlank(message = "手机号不能为空")
-        @Pattern(
-                regexp = "^1[3-9]\\d{9}$",
-                message = "手机号格式不正确"
-        )
-        private String phone;
-        @NotBlank(message = "密码不能为空")
-        @Size(
-                min = 6,
-                max = 20,
-                message = "密码长度在6到20个字符之间"
-        )
-        private String password;
+    @PostMapping("/sendCode")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResponse<SendCodeResponse> sendCode(
+            @Valid @RequestBody SendCodeRequest request
+            ){
+        String code = authService.generateCode(
+                request.getPhone()
+        );
+
+        return ApiResponse.success("验证码已发送", new SendCodeResponse(code));
     }
+
+
 
 }

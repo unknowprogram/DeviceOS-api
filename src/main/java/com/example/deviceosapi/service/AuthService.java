@@ -6,5 +6,10 @@ public interface AuthService{
      * @param  phone 手机号
      * @param  password 密码
      * */
-    void register(String phone, String password);
+    void register(String phone,String code, String password);
+
+    /**
+     * 生成验证码
+     * */
+    String generateCode(String phone);
 }
