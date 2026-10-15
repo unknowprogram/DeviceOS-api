@@ -1,0 +1,29 @@
+# ---------- 构建产物 ----------
+target/
+build/
+out/
+*.class
+
+# ---------- IDE ----------
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+
+# ---------- 日志与临时文件 ----------
+*.log
+logs/
+*.tmp
+*.bak
+
+# ---------- 操作系统 ----------
+.DS_Store
+Thumbs.db
+
+# ---------- 环境与密钥 ----------
+.env
+*.local

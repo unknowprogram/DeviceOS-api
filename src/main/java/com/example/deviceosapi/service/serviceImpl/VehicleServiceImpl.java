@@ -62,6 +62,5 @@ public class VehicleServiceImpl implements VehicleService {
         //保存车辆信息
         vehicleMapper.insert(vehicle);
         return vehicle;
-
     }
 }
