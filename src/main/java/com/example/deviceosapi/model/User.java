@@ -21,7 +21,6 @@ public class User {
     /** 主键，数据库自增 */
     @TableId(type = IdType.AUTO)
     private Long id;
-
     /** 手机号 */
     private String phone;
 
