@@ -1,5 +1,7 @@
 package com.example.deviceosapi.service;
 
+import com.example.deviceosapi.dto.LoginResponse;
+
 public interface AuthService{
     /**
      * 用户注册
@@ -12,4 +14,9 @@ public interface AuthService{
      * 生成验证码
      * */
     String generateCode(String phone);
+
+    /**
+     * 登录
+     * */
+    LoginResponse login(String phone, String password);
 }

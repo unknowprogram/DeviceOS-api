@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * Spring Security 配置
@@ -28,10 +29,12 @@ public class SecurityConfig {
 
     /**
      * 安全过滤链：注册/登录允许匿名访问，其余接口需要认证。
-     * JWT 过滤器实现后再加入本链。
+     * JWT 过滤器在 UsernamePasswordAuthenticationFilter 之前解析 Bearer Token。
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
                 // 纯 Token 接口，无 Cookie 会话，关闭 CSRF
                 .csrf(csrf -> csrf.disable())
@@ -49,7 +52,9 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/auth/register", "/api/v1/auth/login","/api/v1/auth/sendCode")
                         .permitAll()
                         .anyRequest().authenticated()
-                );
+                )
+                // JWT 过滤器：在用户名密码过滤器之前解析 Bearer Token
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }

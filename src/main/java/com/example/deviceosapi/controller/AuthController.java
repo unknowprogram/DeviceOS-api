@@ -2,6 +2,8 @@ package com.example.deviceosapi.controller;
 
 import com.example.deviceosapi.common.ApiResponse;
 import com.example.deviceosapi.common.BusinessException;
+import com.example.deviceosapi.dto.LoginRequest;
+import com.example.deviceosapi.dto.LoginResponse;
 import com.example.deviceosapi.dto.RegisterRequest;
 import com.example.deviceosapi.dto.SendCodeRequest;
 import com.example.deviceosapi.dto.SendCodeResponse;
@@ -52,6 +54,20 @@ public class AuthController {
         return ApiResponse.success("验证码已发送", new SendCodeResponse(code));
     }
 
+    /**
+     * 登录接口
+     * */
+    @PostMapping("/login")
+    public ApiResponse<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request
+    ){
+        LoginResponse loginResponse = authService.login(
+                request.getPhone(),
+                request.getPassword()
+        );
+        return ApiResponse.success("登录成功", loginResponse);
+
+    }
 
 
 }

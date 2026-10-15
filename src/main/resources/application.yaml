@@ -5,7 +5,6 @@ spring:
   application:
     name: driveOS-api
 
-
   #MYSQL配置
   datasource:
     url: jdbc:mysql://localhost:3306/driveos?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowMultiQueries=true&allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=Asia/Shanghai
@@ -18,13 +17,13 @@ spring:
     enabled: true
     baseline-on-migrate: true
 
-  # DriveOS 自定义配置
-  app:
-    jwt:
-      # 必须通过环境变量设置，不要将真实密钥提交到 Git
-      secret: "9e+KIQ0XnMA5rDICEpDN0d0hiKK7xD+6PsjwrgIoEQ0="
-      # Access Token 有效期：30 分钟
-      access-expiration-ms: 1800000
+# DriveOS 自定义配置
+app:
+  jwt:
+    # 必须通过环境变量设置，不要将真实密钥提交到 Git
+    secret: "9e+KIQ0XnMA5rDICEpDN0d0hiKK7xD+6PsjwrgIoEQ0="
+    # Access Token 有效期：30 分钟
+    access-expiration-ms: 1800000
 
 # MyBatis-Plus 配置
 mybatis-plus:
@@ -40,7 +39,3 @@ mybatis-plus:
       id-type: auto
       # 实体名/属性名默认按下划线转换表名/列名
       table-underline: true
-
-
-
-
