@@ -3,7 +3,8 @@ package com.example.deviceosapi.service.serviceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.example.deviceosapi.common.BusinessException;
 import com.example.deviceosapi.common.ResultCode;
-import com.example.deviceosapi.dto.LoginResponse;
+import com.example.deviceosapi.dto.response.LoginResponse;
+import com.example.deviceosapi.dto.response.UserInfoResponse;
 import com.example.deviceosapi.mapper.SmsCodeMapper;
 import com.example.deviceosapi.mapper.UserMapper;
 import com.example.deviceosapi.model.SmsCode;
@@ -120,5 +121,17 @@ public class AuthServiceImpl implements AuthService {
         //签发token
         String token = jwtUtil.generateToken(user.getId());
         return new LoginResponse(token, jwtUtil.getAccessExpirationMs(), user.getNickname());
+    }
+
+    /**
+     * 当前登录用户信息
+     * */
+    @Override
+    public UserInfoResponse getUserInfo(Long userId) {
+        User user = userMapper.selectById(userId);
+        if (user == null) {
+            throw new BusinessException(ResultCode.NOT_FOUND, "用户不存在");
+        }
+        return new UserInfoResponse(user.getId(), user.getPhone(), user.getNickname());
     }
 }

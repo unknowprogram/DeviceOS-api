@@ -1,4 +1,4 @@
-package com.example.deviceosapi.dto;
+package com.example.deviceosapi.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

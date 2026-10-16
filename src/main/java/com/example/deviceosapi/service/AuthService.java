@@ -1,6 +1,7 @@
 package com.example.deviceosapi.service;
 
-import com.example.deviceosapi.dto.LoginResponse;
+import com.example.deviceosapi.dto.response.LoginResponse;
+import com.example.deviceosapi.dto.response.UserInfoResponse;
 
 public interface AuthService{
     /**
@@ -19,4 +20,9 @@ public interface AuthService{
      * 登录
      * */
     LoginResponse login(String phone, String password);
+
+    /**
+     * 查询当前登录用户信息
+     * */
+    UserInfoResponse getUserInfo(Long userId);
 }

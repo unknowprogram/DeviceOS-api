@@ -1,4 +1,4 @@
-package com.example.deviceosapi.dto;
+package com.example.deviceosapi.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

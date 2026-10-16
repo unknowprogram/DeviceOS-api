@@ -1,18 +1,15 @@
 package com.example.deviceosapi.controller;
 
 import com.example.deviceosapi.common.ApiResponse;
-import com.example.deviceosapi.common.BusinessException;
-import com.example.deviceosapi.dto.LoginRequest;
-import com.example.deviceosapi.dto.LoginResponse;
-import com.example.deviceosapi.dto.RegisterRequest;
-import com.example.deviceosapi.dto.SendCodeRequest;
-import com.example.deviceosapi.dto.SendCodeResponse;
+import com.example.deviceosapi.dto.request.LoginRequest;
+import com.example.deviceosapi.dto.response.LoginResponse;
+import com.example.deviceosapi.dto.request.RegisterRequest;
+import com.example.deviceosapi.dto.request.SendCodeRequest;
+import com.example.deviceosapi.dto.response.SendCodeResponse;
+import com.example.deviceosapi.dto.response.UserInfoResponse;
 import com.example.deviceosapi.service.AuthService;
+import com.example.deviceosapi.utils.SecurityUtils;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -69,5 +66,14 @@ public class AuthController {
 
     }
 
+    /**
+     * 获取用户信息
+     * */
+    @GetMapping("/getUserInfo")
+    public ApiResponse<UserInfoResponse> getUserInfo() {
+        return ApiResponse.success(
+                authService.getUserInfo(SecurityUtils.getCurrentUserId())
+        );
+    }
 
 }

@@ -1,6 +1,5 @@
-package com.example.deviceosapi.dto;
+package com.example.deviceosapi.dto.request;
 
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
